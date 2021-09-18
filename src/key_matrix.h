@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2018 Ha Thach for Adafruit Industries
+ * Copyright (c) 2022 Stephen Cheng for Innaworks Development Limited
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef FLASH_NRF5X_H_
-#define FLASH_NRF5X_H_
+#ifndef KEY_MATRIX_H_
+#define KEY_MATRIX_H_
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -34,13 +34,10 @@
  extern "C" {
 #endif
 
-#define FLASH_PAGE_SIZE           4096
-
-void flash_nrf5x_write (uint32_t dst, void const *src, int len, bool need_erase);
-void flash_nrf5x_flush (bool need_erase);
+int scan_key_matrix_for_key_combos();
 
 #ifdef __cplusplus
  }
 #endif
 
-#endif /* FLASH_NRF5X_H_ */
+#endif /* KEY_MATRIX_H_ */

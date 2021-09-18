@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/adafruit/Adafruit_nRF52_Bootloader/workflows/Build/badge.svg)](https://github.com/adafruit/Adafruit_nRF52_Bootloader/actions)
 
-This is a CDC/DFU/UF2 bootloader for nRF52 boards.
+This is a CDC/DFU/UF2 bootloader for nRF52 boards. It is further enhanced by [MoErgo](https://www.moergo.com) for additional key matrix support.
 
 - [Adafruit CLUE](https://www.adafruit.com/product/4500)
 - [Adafruit Circuit Playground Bluefruit](https://www.adafruit.com/product/4333)
@@ -46,6 +46,7 @@ git submodule update --init
 - Self-upgradable via Serial and OTA
 - DFU using UF2 (https://github.com/Microsoft/uf2) (application only)
 - Auto-enter DFU briefly on startup for DTR auto-reset trick (832 only)
+- (New) Key matrix support for entering DFU, and to wipe application configuration
 
 ## How to use
 
@@ -76,6 +77,30 @@ On the Nordic PCA10059 Dongle board, `DFU` is connected to the white button.
 There is an adjacent ground pad.
 
 For other boards, please check the board definition for details.
+
+### Key Matrix Support
+
+Added support for key matrix to scan for key presses at entry of bootloader.
+If a combination of two keys is detected, it will enter DFU mode.
+If another combination of two keys is detected, the application configuration area will be erased.
+
+This feature is optional and must be configured in ```board.h```. An example definition is as follows:
+```
+//--------------------------------------------------------------------+
+// KEY MATRIX
+//--------------------------------------------------------------------+
+#define ENABLE_KEY_MATRIX      1
+#define KM_SCAN_DIR            0  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
+#define KM_COL_COUNT           7
+#define KM_COL_PINS            { _PINNUM(0, 2), _PINNUM(1, 4), _PINNUM(1, 6), _PINNUM(1, 7), _PINNUM(1, 5), _PINNUM(1, 3), _PINNUM(1, 1) }
+#define KM_ROW_COUNT           6
+#define KM_ROW_PINS            { _PINNUM(0, 26), _PINNUM(0, 5), _PINNUM(0, 7), _PINNUM(1, 8), _PINNUM(0, 11), _PINNUM(0, 12) }
+#define _KEYID(col_id, row_id)    (col_id*KM_ROW_COUNT + row_id)
+#define KM_COMBO_DFU           {_KEYID(6, 5), _KEYID(3, 2)} 
+#define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 5), _KEYID(3, 1)} 
+#define KM_COMBO_COUNT         2
+#define KM_COMBOS              {KM_COMBO_DFU, KM_COMBO_WIPE_CONFIG} 
+```
 
 ### Making your own UF2
 

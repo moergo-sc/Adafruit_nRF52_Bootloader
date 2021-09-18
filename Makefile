@@ -132,6 +132,7 @@ C_SRC += \
   src/dfu_init.c \
   src/flash_nrf5x.c \
   src/main.c \
+  src/key_matrix.c
 
 # all files in boards
 C_SRC += src/boards/boards.c

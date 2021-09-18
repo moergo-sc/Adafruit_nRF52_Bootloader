@@ -21,6 +21,9 @@ MEMORY
   /** Location of bootloader setting in flash. */
   BOOTLOADER_SETTINGS (rw) : ORIGIN = 0xFF000, LENGTH = 0x1000
 
+  /** Location of flash with firmware cofiguration. */
+  FIRMWARE_CONFIG (rw) : ORIGIN = 0xEC000, LENGTH = 0x8000
+
 
 
   /** RAM Region for bootloader. */
@@ -62,6 +65,11 @@ SECTIONS
   {
     
   } > BOOTLOADER_SETTINGS
+
+  /* Place the firmware configuration page in flash. */
+  .firmwareConfig(NOLOAD) :
+  {
+  } > FIRMWARE_CONFIG
 
   /* Write the bootloader address in UICR. */
   .uicrBootStartAddress : 

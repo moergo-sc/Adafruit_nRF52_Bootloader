@@ -68,6 +68,8 @@
 #include "pstorage.h"
 #include "nrfx_nvmc.h"
 
+#include "key_matrix.h"
+
 
 #ifdef NRF_USBD
 #include "nrf_usbd.h"
@@ -146,8 +148,9 @@ bool is_ota(void)
   return _ota_dfu;
 }
 
-static void check_dfu_mode(void);
+static void check_dfu_mode(bool);
 static uint32_t ble_stack_init(void);
+static void wipe_firmware_config(void);
 
 // The SoftDevice must only be initialized if a chip reset has occurred.
 // Soft reset (jump ) from application must not reinitialize the SoftDevice.
@@ -190,9 +193,20 @@ int main(void)
     led_state(STATE_WRITING_FINISHED);
   }
 
+  // Scan key matrix and look for registered key combos
+  int key_combo = scan_key_matrix_for_key_combos();
+  bool is_dfu_key_combo = (key_combo == 0);
+  bool is_wipe_firmware_config_key_combo = (key_combo == 1);
+
+  // Wipe firmware config if correct key combo detected
+  if (is_wipe_firmware_config_key_combo)
+  {
+    wipe_firmware_config();
+  }
+
   // Check all inputs and enter DFU if needed
   // Return when DFU process is complete (or not entered at all)
-  check_dfu_mode();
+  check_dfu_mode(is_dfu_key_combo);
 
   // Reset peripherals
   board_teardown();
@@ -227,7 +241,7 @@ int main(void)
   NVIC_SystemReset();
 }
 
-static void check_dfu_mode(void)
+static void check_dfu_mode(bool is_dfu_key_combo)
 {
   uint32_t const gpregret = NRF_POWER->GPREGRET;
 
@@ -255,6 +269,9 @@ static void check_dfu_mode(void)
   if (dfu_skip) return;
 
   /*------------- Determine DFU mode (Serial, OTA, FRESET or normal) -------------*/
+  // [SC] Key matrix combo detected
+  dfu_start = dfu_start || is_dfu_key_combo;
+
   // DFU button pressed
   dfu_start = dfu_start || button_pressed(BUTTON_DFU);
 
@@ -404,6 +421,27 @@ static uint32_t ble_stack_init(void)
   return NRF_SUCCESS;
 }
 
+
+//--------------------------------------------------------------------+
+// Firmware Config Wiping
+//--------------------------------------------------------------------+
+// Defines variable for the firmwar4 config. Must align with ZMK definition and linker script definition
+__attribute__ ((section(".firmwareConfig")))
+uint8_t m_firmware_config[0x8000];
+
+
+static void wipe_firmware_config()
+{
+  PRINTF("in wipe_firmware_config()\r\n");
+  // Assumes .firmwareConfig aligns with flash page
+
+  for (uint8_t* page = m_firmware_config;
+       page < m_firmware_config + sizeof(m_firmware_config);
+       page += FLASH_PAGE_SIZE)
+  {
+    nrfx_nvmc_page_erase((intptr_t)page);
+  }
+}
 
 //--------------------------------------------------------------------+
 // Error Handler
