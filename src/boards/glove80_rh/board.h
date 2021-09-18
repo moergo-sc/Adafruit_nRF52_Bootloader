@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef _GLOVB80_RH_H
-#define _GLOVB80_RH_H
+#ifndef _GLOVE80_RH_H
+#define _GLOVE80_RH_H
 
 #define _PINNUM(port, pin)    ((port)*32 + (pin))
 
