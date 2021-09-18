@@ -30,7 +30,9 @@
 /*------------------------------------------------------------------*/
 /* PowerManagement
  *------------------------------------------------------------------*/
-#define ENABLE_DCDC_1
+// Enable DCDC for both REG0 and REG1 - see https://infocenter.nordicsemi.com/index.jsp?topic=%2Fps_nrf52840%2Fpower.html&resultof=%22%44%43%44%43%45%4e%30%22%20%22%64%63%64%63%65%6e%30%22%20&anchor=unique_1227442007
+#define ENABLE_DCDC_0	      1
+#define ENABLE_DCDC_1         1
 
 /*------------------------------------------------------------------*/
 /* LED
