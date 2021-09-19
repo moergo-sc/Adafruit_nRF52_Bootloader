@@ -34,6 +34,9 @@
 #define ENABLE_DCDC_0	      1
 #define ENABLE_DCDC_1         1
 
+// Set the RegOut0 voltage to be 3.3V so that it is compatible with ST-Link
+#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
+
 /*------------------------------------------------------------------*/
 /* LED
  *------------------------------------------------------------------*/
