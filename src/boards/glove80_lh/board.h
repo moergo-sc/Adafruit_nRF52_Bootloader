@@ -34,8 +34,8 @@
 #define ENABLE_DCDC_0	      1
 #define ENABLE_DCDC_1         1
 
-// Set the RegOut0 voltage to be 3.3V so that it is compatible with ST-Link
-#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
+// Set the RegOut0 voltage to be 2.1V
+#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_2V1
 
 /*------------------------------------------------------------------*/
 /* LED
@@ -48,8 +48,8 @@
 /* BUTTON
  *------------------------------------------------------------------*/
 #define BUTTONS_NUMBER        2
-#define BUTTON_1              _PINNUM(1, 11)
-#define BUTTON_2              _PINNUM(0, 18)
+#define BUTTON_1              _PINNUM(1, 11) // SW3 CFG_FIRMWARE_UNLOCKED
+#define BUTTON_2              _PINNUM(0, 10) // Not connected 
 #define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
