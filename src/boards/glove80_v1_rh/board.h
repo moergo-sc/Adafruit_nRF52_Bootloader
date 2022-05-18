@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef _GLOVE80_RH_H
-#define _GLOVE80_RH_H
+#ifndef _GLOVE80_V1_RH_H
+#define _GLOVE80_V1_RH_H
 
 #define _PINNUM(port, pin)    ((port)*32 + (pin))
 
@@ -66,7 +66,7 @@
 #define USB_DESC_CDC_ONLY_PID  0x002A
 
 //------------- UF2 -------------//
-#define UF2_PRODUCT_NAME      "Glove80 RH"
+#define UF2_PRODUCT_NAME      "Glove80 v1 RH"
 #define UF2_VOLUME_LABEL      "FTHR840BOOT"
 #define UF2_BOARD_ID          "nRF52840-Glove80-RH-revA"
 #define UF2_INDEX_URL         "https://www.moergo.com"
