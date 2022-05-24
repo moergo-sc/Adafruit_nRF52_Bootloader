@@ -28,6 +28,9 @@
   <MemorySegment name="$(FLASH2_NAME:BOOTLOADER_SETTINGS)">
     <ProgramSection alignment="4" load="No" name=".bootloaderSettings" />
   </MemorySegment>
+  <MemorySegment name="$(FLASH6_NAME:FIRMWARE_CONFIG)">
+    <ProgramSection alignment="4" load="No" name=".firmwareConfig" />
+  </MemorySegment>
   <MemorySegment name="$(FLASH3_NAME:MBR_PARAMS_PAGE)">
     <ProgramSection alignment="4" load="No" name=".mbrParamsPage" keep="Yes" />
   </MemorySegment>

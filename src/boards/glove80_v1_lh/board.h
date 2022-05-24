@@ -34,8 +34,8 @@
 #define ENABLE_DCDC_0	      1
 #define ENABLE_DCDC_1         1
 
-// Set the RegOut0 voltage to be 2.1V
-#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_2V1
+// Set the RegOut0 voltage to be 2.4V
+#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_2V4
 
 /*------------------------------------------------------------------*/
 /* LED
@@ -64,6 +64,21 @@
 #define USB_DESC_VID           0x239A
 #define USB_DESC_UF2_PID       0x0029
 #define USB_DESC_CDC_ONLY_PID  0x002A
+
+//--------------------------------------------------------------------+
+// KEY MATRIX
+//--------------------------------------------------------------------+
+#define ENABLE_KEY_MATRIX      1
+#define KM_SCAN_DIR            0  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
+#define KM_COL_COUNT           7  
+#define KM_COL_PINS            {_PINNUM(1, 11),_PINNUM(1, 11),_PINNUM(1, 11)}
+#define KM_ROW_COUNT           6
+#define KM_ROW_PINS            {_PINNUM(1, 11),_PINNUM(1, 11),_PINNUM(1, 11)}
+#define _KEYID(col_num_minus_1, row_num_minus_1)    (col_num_minus_1*KM_ROW_COUNT + row_num_minus_1)
+#define KM_COMBO_MSC           {_KEYID(6-1, 6-1), _KEYID(3-1, 3-1)} // C6R6 + C3R3
+#define KM_COMBO_WIPE_CONFIG   {_KEYID(6-1, 6-1), _KEYID(3-1, 2-1)} // C6R6 + C3R2
+#define KM_COMBOS              {KM_COMBO_MSC, KM_COMBO_WIPE_CONFIG} 
+
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v1 LH"
