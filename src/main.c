@@ -190,9 +190,15 @@ int main(void)
     led_state(STATE_WRITING_FINISHED);
   }
 
+  // [SC] Do a key matrix scan
+  // [SC] Check for key matrix combo
+
   // Check all inputs and enter DFU if needed
   // Return when DFU process is complete (or not entered at all)
+  // [SC] Need to pass in state of whether key matrix combo for DFU has been triggered 
   check_dfu_mode();
+
+  // [SC] Wipe firmware config if tiggered
 
   // Reset peripherals
   board_teardown();
