@@ -68,6 +68,8 @@
 #include "pstorage.h"
 #include "nrfx_nvmc.h"
 
+#include "key_matrix.h"
+
 
 #ifdef NRF_USBD
 #include "nrf_usbd.h"
@@ -190,15 +192,22 @@ int main(void)
     led_state(STATE_WRITING_FINISHED);
   }
 
-  // [SC] Do a key matrix scan
-  // [SC] Check for key matrix combo
+  // Scan key matrix and look for registered key combos
+  int key_combo = scan_key_matrix_for_key_combos();
+  bool is_dfu_key_combo = (key_combo==0);
+  PRINTF("is_dfu_key_combo = %B\r\n", is_dfu_key_combo);
+
+  bool is_wipe_firmware_config_key_combo = (key_combo==1);
+  PRINTF("is_wipe_firmware_config_key_combo = %B\r\n", is_wipe_firmware_config_key_combo);
+
 
   // Check all inputs and enter DFU if needed
   // Return when DFU process is complete (or not entered at all)
-  // [SC] Need to pass in state of whether key matrix combo for DFU has been triggered 
-  check_dfu_mode();
+  check_dfu_mode(is_dfu_key_combo);
 
-  // [SC] Wipe firmware config if tiggered
+  // Wipe firmware config if correct key combo detected
+  if (is_wipe_firmware_config_key_combo)
+    wipe_firmware_config(); 
 
   // Reset peripherals
   board_teardown();
@@ -233,7 +242,12 @@ int main(void)
   NVIC_SystemReset();
 }
 
-static void check_dfu_mode(void)
+static void wipe_firmware_config() {
+// [SC] Curently do nothing. Code needed  
+  PRINTF("in wipe_firmware_config()\r\n");
+}
+
+static void check_dfu_mode(bool is_dfu_key_combo)
 {
   uint32_t const gpregret = NRF_POWER->GPREGRET;
 
@@ -261,6 +275,9 @@ static void check_dfu_mode(void)
   if (dfu_skip) return;
 
   /*------------- Determine DFU mode (Serial, OTA, FRESET or normal) -------------*/
+  // [SC] Key matrix combo detected
+  dfu_start = dfu_start || is_dfu_key_combo;
+
   // DFU button pressed
   dfu_start = dfu_start || button_pressed(BUTTON_DFU);
 

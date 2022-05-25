@@ -70,14 +70,37 @@
 //--------------------------------------------------------------------+
 #define ENABLE_KEY_MATRIX      1
 #define KM_SCAN_DIR            0  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
+/**
+  &kscan0 {
+	row-gpios
+		= <&gpio0 26 GPIO_OPEN_SOURCE> // LH ROW1
+		, <&gpio0 5 GPIO_OPEN_SOURCE> // LH ROW2
+		, <&gpio0 7 GPIO_OPEN_SOURCE> // LH ROW3
+		, <&gpio1 8 GPIO_OPEN_SOURCE> // LH ROW4
+		, <&gpio0 11 GPIO_OPEN_SOURCE> // LH ROW5
+		, <&gpio0 12 GPIO_OPEN_SOURCE> // LH ROW6
+		;
+	col-gpios
+		= <&gpio1 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH COL6
+		, <&gpio1 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH COL5
+		, <&gpio1 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH COL4
+		, <&gpio1 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH COL3
+		, <&gpio1 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH COL2
+		, <&gpio1 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH COL1
+		, <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // LH Thumb
+		;
+};
+*/
 #define KM_COL_COUNT           7  
-#define KM_COL_PINS            {_PINNUM(1, 11),_PINNUM(1, 11),_PINNUM(1, 11)}
+#define KM_COL_PINS            {_PINNUM(1, 1),_PINNUM(1, 3),_PINNUM(1, 5),_PINNUM(1, 7),_PINNUM(1, 6),_PINNUM(1, 4),_PINNUM(0, 2)}
 #define KM_ROW_COUNT           6
-#define KM_ROW_PINS            {_PINNUM(1, 11),_PINNUM(1, 11),_PINNUM(1, 11)}
+#define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 7),_PINNUM(1, 8),_PINNUM(0, 11),_PINNUM(0, 12)}
 #define _KEYID(col_num_minus_1, row_num_minus_1)    (col_num_minus_1*KM_ROW_COUNT + row_num_minus_1)
 #define KM_COMBO_MSC           {_KEYID(6-1, 6-1), _KEYID(3-1, 3-1)} // C6R6 + C3R3
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6-1, 6-1), _KEYID(3-1, 2-1)} // C6R6 + C3R2
+#define KM_COMBO_COUNT         2
 #define KM_COMBOS              {KM_COMBO_MSC, KM_COMBO_WIPE_CONFIG} 
+#define KM_SCAN_PAUSE          1
 
 
 //------------- UF2 -------------//
