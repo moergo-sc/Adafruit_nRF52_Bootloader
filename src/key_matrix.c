@@ -23,7 +23,7 @@
  */
 #include "boards.h"
 
-#ifdef ENABLE_KEY_MATRIX
+#if ENABLE_KEY_MATRIX==1
 
 static bool matrix_state[KM_COL_COUNT][KM_ROW_COUNT] = {0};
 static uint32_t key_combos[KM_COMBO_COUNT][2]=KM_COMBOS;
@@ -85,7 +85,7 @@ void scan_key_matrix() {
             if (row_result) {
                 PRINTF("col=%i row=%i pressed\r\n", col, row);
             }
-            matrix_state[col][row]= col_result;
+            matrix_state[col][row]= row_result;
         }
 
         // Drive the col pin low
@@ -110,7 +110,7 @@ int scan_key_matrix_for_key_combos() {
 
     // Check the number of pressed keys
     uint32_t pressed_key_count = 0;
-    uint32_t pressed_keys[2] = {0xFFFF};
+    uint32_t pressed_keys[3] = {0xFFFF};
     
     for (uint32_t col = 0; col < KM_COL_COUNT; col++){
         for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
@@ -162,11 +162,11 @@ void km_pause(uint32_t wait_ms) {
     // [SC] Need to be written
 }
 
-#else // ENABLE_KEY_MATRIX
+#else // ENABLE_KEY_MATRIX==1
 
 // Dummy implementation
 int scan_key_matrix_for_key_combos() {
     return -1;
 }
 
-#endif // ENABLE_KEY_MATRIX
+#endif // ENABLE_KEY_MATRIX==1
