@@ -148,8 +148,9 @@ bool is_ota(void)
   return _ota_dfu;
 }
 
-static void check_dfu_mode(void);
+static void check_dfu_mode(bool);
 static uint32_t ble_stack_init(void);
+static void wipe_firmware_config(void);
 
 // The SoftDevice must only be initialized if a chip reset has occurred.
 // Soft reset (jump ) from application must not reinitialize the SoftDevice.

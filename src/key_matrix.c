@@ -26,10 +26,14 @@
 #ifdef ENABLE_KEY_MATRIX
 
 static bool matrix_state[KM_COL_COUNT][KM_ROW_COUNT] = {0};
-static uint32_t key_combos[][]=KM_KEY_COMBOS;
-static uint32_t key_combo_count=KM_KEY_COMBO_COUNT;
-static uint32_t row_pins[]=KM_ROW_PINS;
-static uint32_t col_pins[]=KM_COL_PINS;
+static uint32_t key_combos[KM_COMBO_COUNT][2]=KM_COMBOS;
+static uint32_t key_combo_count=KM_COMBO_COUNT;
+static uint32_t row_pins[KM_ROW_COUNT]=KM_ROW_PINS;
+static uint32_t col_pins[KM_COL_COUNT]=KM_COL_PINS;
+
+static void km_init_scan_pin(uint32_t);
+static void km_init_read_pin(uint32_t);
+static void km_pause(uint32_t);
 
 void scan_key_matrix() {
 
@@ -37,10 +41,10 @@ void scan_key_matrix() {
     // Scan with row pins, and read with col pins
  
     for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
-        km_init_scan_pin(row_pins[row])
+        km_init_scan_pin(row_pins[row]);
     }
     for (uint32_t col = 0; col < KM_COL_COUNT; col++){
-        km_init_read_pin(col_pins[col])
+        km_init_read_pin(col_pins[col]);
     }
 
     for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
@@ -65,10 +69,10 @@ void scan_key_matrix() {
 #else
     // Scan with col pins, and read with row pins
     for (uint32_t col = 0; col < KM_COL_COUNT; col++){
-        km_init_scan_pin(col_pins[col])
+        km_init_scan_pin(col_pins[col]);
     }
     for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
-        km_init_read_pin(row_pins[row])
+        km_init_read_pin(row_pins[row]);
     }
 
     for (uint32_t col = 0; col < KM_COL_COUNT; col++){
@@ -106,10 +110,10 @@ int scan_key_matrix_for_key_combos() {
 
     // Check the number of pressed keys
     uint32_t pressed_key_count = 0;
-    uint32_t pressed_keys[2]; = {0xFFFF};
+    uint32_t pressed_keys[2] = {0xFFFF};
     
-    for (col = 0 to KM_COL_COUNT){
-        for (row = 0 to KM_ROW_COUNT){
+    for (uint32_t col = 0; col < KM_COL_COUNT; col++){
+        for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
             if (matrix_state[col][row]) {
                 pressed_keys[pressed_key_count] = _KEYID(col, row); 
                 pressed_key_count++;
@@ -126,7 +130,7 @@ int scan_key_matrix_for_key_combos() {
         return -1;
     }
     
-    for (unint32_t combo = 0; combo < key_combo_count; combo++ )
+    for (uint32_t combo = 0; combo < key_combo_count; combo++ ){
         if ((key_combos[combo][0]==pressed_keys[0] && key_combos[combo][1]==pressed_keys[1]) ||
             (key_combos[combo][0]==pressed_keys[1] && key_combos[combo][1]==pressed_keys[0])) {
             // Found the key combo
