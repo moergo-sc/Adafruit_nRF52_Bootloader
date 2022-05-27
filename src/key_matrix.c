@@ -64,7 +64,7 @@ void scan_key_matrix() {
         nrf_gpio_pin_clear(row_pins[row]);
 
         // Pause before next scanning next row
-        km_pause(KM_SCAN_PAUSE);  
+        km_pause();  
     }
 #else
     // Scan with col pins, and read with row pins
