@@ -19,12 +19,6 @@
 __attribute__ ((section(".bootloaderSettings")))
 uint8_t m_boot_settings[CODE_PAGE_SIZE];
 
-// [SC] Should we defined the size as a constant in dfu_types.h? 
-/**< This variable reserves a codepage for firmware config, to ensure the compiler doesn't locate any code or variables at this location. */
-__attribute__ ((section(".firmwareConfig")))
-uint8_t m_firmware_config[8*CODE_PAGE_SIZE];
-
-
 /**< This variable ensures that the linker script will write the bootloader start address to the UICR register. This value will be written in the HEX file and thus written to UICR when the bootloader is flashed into the chip. */
  __attribute__ ((section(".uicrBootStartAddress")))
 volatile uint32_t m_uicr_bootloader_start_address = BOOTLOADER_REGION_START;

@@ -243,11 +243,6 @@ int main(void)
   NVIC_SystemReset();
 }
 
-static void wipe_firmware_config() {
-// [SC] Curently do nothing. Code needed  
-  PRINTF("in wipe_firmware_config()\r\n");
-}
-
 static void check_dfu_mode(bool is_dfu_key_combo)
 {
   uint32_t const gpregret = NRF_POWER->GPREGRET;
@@ -428,6 +423,18 @@ static uint32_t ble_stack_init(void)
   return NRF_SUCCESS;
 }
 
+
+//--------------------------------------------------------------------+
+// Firmware Config Wiping
+//--------------------------------------------------------------------+
+// Defines variable for the firmwar4 config. Must align with ZMK definition and linker script definition
+__attribute__ ((section(".firmwareConfig")))
+uint8_t m_firmware_config[0x8000];
+
+static void wipe_firmware_config() {
+// [SC] Curently do nothing. Code needed  
+  PRINTF("in wipe_firmware_config()\r\n");
+}
 
 //--------------------------------------------------------------------+
 // Error Handler
