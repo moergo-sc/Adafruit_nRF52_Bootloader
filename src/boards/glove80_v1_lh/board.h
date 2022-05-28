@@ -91,10 +91,10 @@
 		;
 };
 */
-#define KM_COL_COUNT           7  
-#define KM_COL_PINS            {_PINNUM(1, 1),_PINNUM(1, 3),_PINNUM(1, 5),_PINNUM(1, 7),_PINNUM(1, 6),_PINNUM(1, 4),_PINNUM(0, 2)}
+#define KM_COL_COUNT           7
+#define KM_COL_PINS            { _PINNUM(0, 2), _PINNUM(1, 4), _PINNUM(1, 6), _PINNUM(1, 7), _PINNUM(1, 5), _PINNUM(1, 3), _PINNUM(1, 1) }
 #define KM_ROW_COUNT           6
-#define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 7),_PINNUM(1, 8),_PINNUM(0, 11),_PINNUM(0, 12)}
+#define KM_ROW_PINS            { _PINNUM(0, 26), _PINNUM(0, 5), _PINNUM(0, 7), _PINNUM(1, 8), _PINNUM(0, 11), _PINNUM(0, 12) }
 #define _KEYID(col_id, row_id)    (col_id*KM_ROW_COUNT + row_id)
 #define KM_COMBO_MSC           {_KEYID(6, 6-1), _KEYID(3, 3-1)} // C6R6 + C3R3
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
