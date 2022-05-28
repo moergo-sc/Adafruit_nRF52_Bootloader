@@ -202,13 +202,13 @@ int main(void)
   PRINTF("is_wipe_firmware_config_key_combo = %B\r\n", is_wipe_firmware_config_key_combo);
 
 
-  // Check all inputs and enter DFU if needed
-  // Return when DFU process is complete (or not entered at all)
-  check_dfu_mode(is_dfu_key_combo);
-
   // Wipe firmware config if correct key combo detected
   if (is_wipe_firmware_config_key_combo)
     wipe_firmware_config(); 
+
+  // Check all inputs and enter DFU if needed
+  // Return when DFU process is complete (or not entered at all)
+  check_dfu_mode(is_dfu_key_combo);
 
   // Reset peripherals
   board_teardown();
