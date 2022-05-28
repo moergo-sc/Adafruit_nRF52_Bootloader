@@ -35,66 +35,50 @@ static void km_init_scan_pin(uint32_t);
 static void km_init_read_pin(uint32_t);
 static void km_pause(uint32_t);
 
+// The matrix may be scanned col to row or row to column, and is stored in
+// `matrix_state` as [col][row].
+#if KM_SCAN_DIR == 0
+  #define SCAN_PINS row_pins
+  #define SCAN_COUNT KM_ROW_COUNT
+  #define READ_PINS col_pins
+  #define READ_COUNT KM_COL_COUNT
+  #define MATRIX_SCAN_SLOT(scan, read) matrix_state[read][scan]
+#else
+  #define SCAN_PINS col_pins
+  #define SCAN_COUNT KM_COL_COUNT
+  #define READ_PINS row_pins
+  #define READ_COUNT KM_ROW_COUNT
+  #define MATRIX_SCAN_SLOT(scan, read) matrix_state[scan][read]
+#endif
+
 void scan_key_matrix() {
-
-#if KM_SCAN_DIR==0
-    // Scan with row pins, and read with col pins
- 
-    for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
-        km_init_scan_pin(row_pins[row]);
-    }
-    for (uint32_t col = 0; col < KM_COL_COUNT; col++){
-        km_init_read_pin(col_pins[col]);
+    for (uint32_t scan = 0; scan < SCAN_COUNT; scan++){
+        km_init_scan_pin(SCAN_PINS[scan]);
     }
 
-    for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
-        // Drive the row pin high
-        nrf_gpio_pin_set(row_pins[row]);
+    for (uint32_t read = 0; read < READ_COUNT; read++){
+        km_init_read_pin(READ_PINS[read]);
+    }
 
-        // Read each col pin
-        for (uint32_t col = 0; col < KM_COL_COUNT; col++){
-            bool col_result = (nrf_gpio_pin_read(col_pins[col])==1); 
-            if (col_result) {
-                PRINTF("col=%i row=%i pressed\r\n", col, row);
+    for (uint32_t scan = 0; scan < SCAN_COUNT; scan++){
+        // Drive the scan pin high
+        nrf_gpio_pin_set(SCAN_PINS[scan]);
+
+        // Read each read pin
+        for (uint32_t read = 0; read < READ_COUNT; read++){
+            bool read_result = (nrf_gpio_pin_read(READ_PINS[read]) == 1);
+            if (read_result) {
+                PRINTF("read=%i scan=%i pressed\r\n", read, scan);
             }
-            matrix_state[col][row]= col_result;
+            MATRIX_SCAN_SLOT(scan, read) = read_result;
         }
 
-        // Drive the row pin low
-        nrf_gpio_pin_clear(row_pins[row]);
+        // Drive the scan pin low
+        nrf_gpio_pin_clear(SCAN_PINS[scan]);
 
         // Pause before next scanning next row
-        km_pause();  
+        km_pause(KM_SCAN_PAUSE_MS);
     }
-#else
-    // Scan with col pins, and read with row pins
-    for (uint32_t col = 0; col < KM_COL_COUNT; col++){
-        km_init_scan_pin(col_pins[col]);
-    }
-    for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
-        km_init_read_pin(row_pins[row]);
-    }
-
-    for (uint32_t col = 0; col < KM_COL_COUNT; col++){
-        // Drive the col pin high
-        nrf_gpio_pin_set(col_pins[col]);
-
-        // Read each row pin
-        for (uint32_t row = 0; row < KM_ROW_COUNT; row++){
-            bool row_result = (nrf_gpio_pin_read(row_pins[row])==1); 
-            if (row_result) {
-                PRINTF("col=%i row=%i pressed\r\n", col, row);
-            }
-            matrix_state[col][row]= row_result;
-        }
-
-        // Drive the col pin low
-        nrf_gpio_pin_clear(col_pins[col]);  
-
-        // Pause before next scanning next col
-        km_pause(KM_SCAN_PAUSE);  
-    }
-#endif // KM_SCAN_DIR
 }
 
 /** Given a key matrix state, determine which key combo has been pressed
