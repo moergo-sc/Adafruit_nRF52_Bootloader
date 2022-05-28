@@ -431,16 +431,15 @@ static uint32_t ble_stack_init(void)
 __attribute__ ((section(".firmwareConfig")))
 uint8_t m_firmware_config[0x8000];
 
-static uint8_t blank_page[FLASH_PAGE_SIZE]={0};
 
 static void wipe_firmware_config() {
   PRINTF("in wipe_firmware_config()\r\n");
   // Assumes .firmwareConfig aligns with flash page
-  uint32_t page_count = sizeof(m_firmware_config)/FLASH_PAGE_SIZE;
-  uint8_t* write_addr = (uint8_t*) &m_firmware_config;
-  for (uint32_t page = 0; page < page_count; page++){
-    flash_nrf5x_write((uint32_t*)write_addr, &blank_page, FLASH_PAGE_SIZE, true);
-    write_addr += FLASH_PAGE_SIZE;
+
+  for (uint8_t* page = m_firmware_config;
+       page < m_firmware_config + sizeof(m_firmware_config);
+       page += FLASH_PAGE_SIZE) {
+    nrfx_nvmc_page_erase((intptr_t)page);
   }
 }
 
