@@ -196,10 +196,10 @@ int main(void)
   // Scan key matrix and look for registered key combos
   int key_combo = scan_key_matrix_for_key_combos();
   bool is_dfu_key_combo = (key_combo==0);
-  PRINTF("is_dfu_key_combo = %B\r\n", is_dfu_key_combo);
+  PRINTF("is_dfu_key_combo = %d\r\n", is_dfu_key_combo);
 
   bool is_wipe_firmware_config_key_combo = (key_combo==1);
-  PRINTF("is_wipe_firmware_config_key_combo = %B\r\n", is_wipe_firmware_config_key_combo);
+  PRINTF("is_wipe_firmware_config_key_combo = %d\r\n", is_wipe_firmware_config_key_combo);
 
 
   // Wipe firmware config if correct key combo detected

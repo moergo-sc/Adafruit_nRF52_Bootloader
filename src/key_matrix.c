@@ -67,7 +67,7 @@ void scan_key_matrix() {
         for (uint32_t read = 0; read < READ_COUNT; read++){
             bool read_result = (nrf_gpio_pin_read(READ_PINS[read]) == 1);
             if (read_result) {
-                PRINTF("read=%i scan=%i pressed\r\n", read, scan);
+                PRINTF("read=%lu scan=%lu pressed\r\n", read, scan);
             }
             MATRIX_SCAN_SLOT(scan, read) = read_result;
         }
@@ -89,7 +89,7 @@ int scan_key_matrix_for_key_combos() {
     scan_key_matrix();
 
     // Check the number of pressed keys
-    uint32_t pressed_key_count = 0;
+    uint8_t pressed_key_count = 0;
     uint32_t pressed_keys[3] = {0xFFFF};
     
     for (uint32_t col = 0; col < KM_COL_COUNT; col++){
@@ -98,7 +98,7 @@ int scan_key_matrix_for_key_combos() {
                 pressed_keys[pressed_key_count] = _KEYID(col, row); 
                 pressed_key_count++;
                 if (pressed_key_count>2) {
-                    PRINTF("pressed_key_count>2\r\n");
+                    PRINTF("pressed_key_count > 2\r\n");
                     return -1;
                 }
             }
@@ -106,15 +106,15 @@ int scan_key_matrix_for_key_combos() {
     }
 
     if (pressed_key_count!=2) {
-        PRINTF("pressed_key_count=%i\r\n", pressed_key_count);
+        PRINTF("pressed_key_count=%u\r\n", pressed_key_count);
         return -1;
     }
     
-    for (uint32_t combo = 0; combo < key_combo_count; combo++ ){
+    for (uint8_t combo = 0; combo < key_combo_count; combo++ ){
         if ((key_combos[combo][0]==pressed_keys[0] && key_combos[combo][1]==pressed_keys[1]) ||
             (key_combos[combo][0]==pressed_keys[1] && key_combos[combo][1]==pressed_keys[0])) {
             // Found the key combo
-            PRINTF("Found matching key combo: %i\r\n", combo);
+            PRINTF("Found matching key combo: %u\r\n", combo);
             return combo;
         }
     }
