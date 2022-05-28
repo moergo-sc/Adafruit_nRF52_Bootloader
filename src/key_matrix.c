@@ -33,7 +33,6 @@ static uint32_t col_pins[KM_COL_COUNT]=KM_COL_PINS;
 
 static void km_init_scan_pin(uint32_t);
 static void km_init_read_pin(uint32_t);
-static void km_pause(uint32_t);
 
 // The matrix may be scanned col to row or row to column, and is stored in
 // `matrix_state` as [col][row].
@@ -75,9 +74,6 @@ void scan_key_matrix() {
 
         // Drive the scan pin low
         nrf_gpio_pin_clear(SCAN_PINS[scan]);
-
-        // Pause before next scanning next row
-        km_pause(KM_SCAN_PAUSE_MS);
     }
 }
 
@@ -139,11 +135,6 @@ void km_init_read_pin(uint32_t read_pin)
 {
   // Set to pull down
   nrf_gpio_cfg_input(read_pin, NRF_GPIO_PIN_PULLDOWN);
-}
-
-/** Pause for wait_ms  */
-void km_pause(uint32_t wait_ms) {
-    // [SC] Need to be written
 }
 
 #else // ENABLE_KEY_MATRIX==1
