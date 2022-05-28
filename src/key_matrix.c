@@ -25,11 +25,12 @@
 
 #if ENABLE_KEY_MATRIX==1
 
+static const uint32_t key_combo_count        = KM_COMBO_COUNT;
+static const uint32_t row_pins[KM_ROW_COUNT] = KM_ROW_PINS;
+static const uint32_t col_pins[KM_COL_COUNT] = KM_COL_PINS;
+
 static bool matrix_state[KM_COL_COUNT][KM_ROW_COUNT] = {0};
-static uint32_t key_combos[KM_COMBO_COUNT][2]=KM_COMBOS;
-static uint32_t key_combo_count=KM_COMBO_COUNT;
-static uint32_t row_pins[KM_ROW_COUNT]=KM_ROW_PINS;
-static uint32_t col_pins[KM_COL_COUNT]=KM_COL_PINS;
+static uint32_t key_combos[KM_COMBO_COUNT][2]        = KM_COMBOS;
 
 static void km_init_scan_pin(uint32_t);
 static void km_init_read_pin(uint32_t);
