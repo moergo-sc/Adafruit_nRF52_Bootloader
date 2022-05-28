@@ -70,28 +70,6 @@
 //--------------------------------------------------------------------+
 #define ENABLE_KEY_MATRIX      1
 #define KM_SCAN_DIR            0  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
-
-/**
-&kscan0 {
-	row-gpios
-		= <&gpio0 26 GPIO_OPEN_SOURCE> // RH ROW1
-		, <&gpio0 5 GPIO_OPEN_SOURCE> // RH ROW2
-		, <&gpio0 7 GPIO_OPEN_SOURCE> // RH ROW3
-		, <&gpio1 8 GPIO_OPEN_SOURCE> // RH ROW4
-		, <&gpio0 11 GPIO_OPEN_SOURCE> // RH ROW5
-		, <&gpio0 12 GPIO_OPEN_SOURCE> // RH ROW6
-		;
-	col-gpios
-		= <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH Thumb
-		, <&gpio1 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH COL1
-		, <&gpio1 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH COL2
-		, <&gpio1 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH COL3
-		, <&gpio1 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH COL4
-		, <&gpio1 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH COL5
-		, <&gpio1 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // RH COL6
-		;
-};
-*/
 #define KM_COL_COUNT           7  
 #define KM_COL_PINS            {_PINNUM(0, 2),_PINNUM(1, 4),_PINNUM(1, 6),_PINNUM(1, 7),_PINNUM(1, 5),_PINNUM(1, 3),_PINNUM(1, 1)}
 #define KM_ROW_COUNT           6
@@ -101,7 +79,6 @@
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
 #define KM_COMBO_COUNT         2
 #define KM_COMBOS              {KM_COMBO_MSC, KM_COMBO_WIPE_CONFIG} 
-#define KM_SCAN_PAUSE_MS       1
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v1 RH"

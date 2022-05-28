@@ -79,7 +79,6 @@
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
 #define KM_COMBO_COUNT         2
 #define KM_COMBOS              {KM_COMBO_MSC, KM_COMBO_WIPE_CONFIG} 
-#define KM_SCAN_PAUSE_MS       1
 
 
 //------------- UF2 -------------//

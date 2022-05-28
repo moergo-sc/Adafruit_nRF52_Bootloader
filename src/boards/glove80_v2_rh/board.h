@@ -70,7 +70,6 @@
 //--------------------------------------------------------------------+
 #define ENABLE_KEY_MATRIX      1
 #define KM_SCAN_DIR            1  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
-
 #define KM_COL_COUNT           7  
 #define KM_COL_PINS            {_PINNUM(1, 6),_PINNUM(1, 4),_PINNUM(0, 2),_PINNUM(1, 7),_PINNUM(1, 5),_PINNUM(1, 3),_PINNUM(1, 1)}
 #define KM_ROW_COUNT           6
@@ -80,7 +79,6 @@
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
 #define KM_COMBO_COUNT         2
 #define KM_COMBOS              {KM_COMBO_MSC, KM_COMBO_WIPE_CONFIG} 
-#define KM_SCAN_PAUSE_MS       1
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v2 RH"
