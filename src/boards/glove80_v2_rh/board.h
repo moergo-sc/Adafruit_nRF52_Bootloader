@@ -47,7 +47,9 @@
 /*------------------------------------------------------------------*/
 /* BUTTON
  *------------------------------------------------------------------*/
-#define BUTTONS_NUMBER        0
+#define BUTTONS_NUMBER        2
+#define BUTTON_1              _PINNUM(0, 9) // Not connected
+#define BUTTON_2              _PINNUM(0, 10) // Not connected 
 #define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
@@ -82,7 +84,7 @@
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v2 RH"
-#define UF2_VOLUME_LABEL      "GLV80RH_BOOT"
+#define UF2_VOLUME_LABEL      "GLV80RHBOOT"
 #define UF2_BOARD_ID          "Glove80-RH-revH"
 #define UF2_INDEX_URL         "https://www.moergo.com"
 
