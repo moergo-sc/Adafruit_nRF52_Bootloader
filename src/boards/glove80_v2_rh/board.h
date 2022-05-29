@@ -75,10 +75,10 @@
 #define KM_ROW_COUNT           6
 #define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 7),_PINNUM(1, 8),_PINNUM(0, 11),_PINNUM(0, 12)}
 #define _KEYID(col_id, row_id)    (col_id*KM_ROW_COUNT + row_id)
-#define KM_COMBO_MSC           {_KEYID(6, 6-1), _KEYID(3, 3-1)} // C6R6 + C3R3
+#define KM_COMBO_DFU           {_KEYID(6, 6-1), _KEYID(3, 3-1)} // C6R6 + C3R3
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
 #define KM_COMBO_COUNT         2
-#define KM_COMBOS              {KM_COMBO_MSC, KM_COMBO_WIPE_CONFIG} 
+#define KM_COMBOS              {KM_COMBO_DFU, KM_COMBO_WIPE_CONFIG} 
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v2 RH"
