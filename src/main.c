@@ -195,16 +195,14 @@ int main(void)
 
   // Scan key matrix and look for registered key combos
   int key_combo = scan_key_matrix_for_key_combos();
-  bool is_dfu_key_combo = (key_combo==0);
-  PRINTF("is_dfu_key_combo = %d\r\n", is_dfu_key_combo);
-
-  bool is_wipe_firmware_config_key_combo = (key_combo==1);
-  PRINTF("is_wipe_firmware_config_key_combo = %d\r\n", is_wipe_firmware_config_key_combo);
-
+  bool is_dfu_key_combo = (key_combo == 0);
+  bool is_wipe_firmware_config_key_combo = (key_combo == 1);
 
   // Wipe firmware config if correct key combo detected
   if (is_wipe_firmware_config_key_combo)
-    wipe_firmware_config(); 
+  {
+    wipe_firmware_config();
+  }
 
   // Check all inputs and enter DFU if needed
   // Return when DFU process is complete (or not entered at all)
@@ -432,13 +430,15 @@ __attribute__ ((section(".firmwareConfig")))
 uint8_t m_firmware_config[0x8000];
 
 
-static void wipe_firmware_config() {
+static void wipe_firmware_config()
+{
   PRINTF("in wipe_firmware_config()\r\n");
   // Assumes .firmwareConfig aligns with flash page
 
   for (uint8_t* page = m_firmware_config;
        page < m_firmware_config + sizeof(m_firmware_config);
-       page += FLASH_PAGE_SIZE) {
+       page += FLASH_PAGE_SIZE)
+  {
     nrfx_nvmc_page_erase((intptr_t)page);
   }
 }
