@@ -65,3 +65,4 @@ TAGS
 
 .DS_Store
 Makefile.user
+workspace.code-workspace
