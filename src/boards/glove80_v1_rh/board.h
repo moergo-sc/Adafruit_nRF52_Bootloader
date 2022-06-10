@@ -41,15 +41,15 @@
 /* LED
  *------------------------------------------------------------------*/
 #define LEDS_NUMBER           1
-#define LED_PRIMARY_PIN       _PINNUM(0, 20)
+#define LED_PRIMARY_PIN       _PINNUM(0, 16)
 #define LED_STATE_ON          1
 
 /*------------------------------------------------------------------*/
 /* BUTTON
  *------------------------------------------------------------------*/
 #define BUTTONS_NUMBER        2
-#define BUTTON_1              _PINNUM(0, 15) // SW3 CFG_FIRMWARE_UNLOCKED
-#define BUTTON_2              _PINNUM(0, 16) // Not connected 
+#define BUTTON_1              _PINNUM(0, 9) // Not connected
+#define BUTTON_2              _PINNUM(0, 10) // Not connected 
 #define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
@@ -69,9 +69,9 @@
 // KEY MATRIX
 //--------------------------------------------------------------------+
 #define ENABLE_KEY_MATRIX      1
-#define KM_SCAN_DIR            0  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
+#define KM_SCAN_DIR            1  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
 #define KM_COL_COUNT           7  
-#define KM_COL_PINS            {_PINNUM(0, 2),_PINNUM(1, 4),_PINNUM(1, 6),_PINNUM(1, 7),_PINNUM(1, 5),_PINNUM(1, 3),_PINNUM(1, 1)}
+#define KM_COL_PINS            {_PINNUM(1, 6),_PINNUM(1, 4),_PINNUM(0, 2),_PINNUM(1, 7),_PINNUM(1, 5),_PINNUM(1, 3),_PINNUM(1, 1)}
 #define KM_ROW_COUNT           6
 #define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 7),_PINNUM(1, 8),_PINNUM(0, 11),_PINNUM(0, 12)}
 #define _KEYID(col_id, row_id)    (col_id*KM_ROW_COUNT + row_id)
@@ -82,8 +82,8 @@
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v1 RH"
-#define UF2_VOLUME_LABEL      "FTHR840BOOT"
-#define UF2_BOARD_ID          "nRF52840-Glove80-RH-revA"
+#define UF2_VOLUME_LABEL      "GLV80RHBOOT"
+#define UF2_BOARD_ID          "Glove80-RH-revH"
 #define UF2_INDEX_URL         "https://www.moergo.com"
 
 #endif // _GLOVE80_V1_RH_H

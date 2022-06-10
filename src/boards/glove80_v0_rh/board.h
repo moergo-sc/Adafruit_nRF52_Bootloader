@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef _GLOVE80_V2_LH_H
-#define _GLOVE80_V2_LH_H
+#ifndef _GLOVE80_V0_RH_H
+#define _GLOVE80_V0_RH_H
 
 #define _PINNUM(port, pin)    ((port)*32 + (pin))
 
@@ -41,22 +41,22 @@
 /* LED
  *------------------------------------------------------------------*/
 #define LEDS_NUMBER           1
-#define LED_PRIMARY_PIN       _PINNUM(1, 15)
+#define LED_PRIMARY_PIN       _PINNUM(0, 20)
 #define LED_STATE_ON          1
 
 /*------------------------------------------------------------------*/
 /* BUTTON
  *------------------------------------------------------------------*/
 #define BUTTONS_NUMBER        2
-#define BUTTON_1              _PINNUM(0, 9) // Not connected
-#define BUTTON_2              _PINNUM(0, 10) // Not connected 
+#define BUTTON_1              _PINNUM(0, 15) // SW3 CFG_FIRMWARE_UNLOCKED
+#define BUTTON_2              _PINNUM(0, 16) // Not connected 
 #define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
 // BLE OTA
 //--------------------------------------------------------------------+
 #define BLEDIS_MANUFACTURER   "MoErgo"
-#define BLEDIS_MODEL          "Glove80 LH"
+#define BLEDIS_MODEL          "Glove80 RH"
 
 //--------------------------------------------------------------------+
 // USB
@@ -69,22 +69,21 @@
 // KEY MATRIX
 //--------------------------------------------------------------------+
 #define ENABLE_KEY_MATRIX      1
-#define KM_SCAN_DIR            1  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
+#define KM_SCAN_DIR            0  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
 #define KM_COL_COUNT           7  
-#define KM_COL_PINS            {_PINNUM(1, 1),_PINNUM(1, 3),_PINNUM(1, 5),_PINNUM(1, 7),_PINNUM(1, 6),_PINNUM(1, 4),_PINNUM(1, 8)}
+#define KM_COL_PINS            {_PINNUM(0, 2),_PINNUM(1, 4),_PINNUM(1, 6),_PINNUM(1, 7),_PINNUM(1, 5),_PINNUM(1, 3),_PINNUM(1, 1)}
 #define KM_ROW_COUNT           6
-#define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 6),_PINNUM(0, 8),_PINNUM(0, 7),_PINNUM(1, 9)}
+#define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 7),_PINNUM(1, 8),_PINNUM(0, 11),_PINNUM(0, 12)}
 #define _KEYID(col_id, row_id)    (col_id*KM_ROW_COUNT + row_id)
 #define KM_COMBO_DFU           {_KEYID(6, 6-1), _KEYID(3, 3-1)} // C6R6 + C3R3
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
 #define KM_COMBO_COUNT         2
 #define KM_COMBOS              {KM_COMBO_DFU, KM_COMBO_WIPE_CONFIG} 
 
-
 //------------- UF2 -------------//
-#define UF2_PRODUCT_NAME      "Glove80 v2 LH"
+#define UF2_PRODUCT_NAME      "Glove80 v0 RH"
 #define UF2_VOLUME_LABEL      "GLV80LHBOOT"
-#define UF2_BOARD_ID          "Glove80-LH-revH"
+#define UF2_BOARD_ID          "nRF52840-Glove80-RH-revA"
 #define UF2_INDEX_URL         "https://www.moergo.com"
 
-#endif // _GLOVE80_V2_LH_H
+#endif // _GLOVE80_V0_RH_H

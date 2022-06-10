@@ -22,10 +22,10 @@ This is a CDC/DFU/UF2 bootloader for nRF52 boards. It is further enhanced by [Mo
 - Particle Boron
 - Particle Xenon
 - [SparkFun MicroMod nRF52840](https://www.sparkfun.com/products/16984)
+- [Glove80 v0 Left Hand](https://www.moergo.com)
+- [Glove80 v0 Right Hand](https://www.moergo.com)
 - [Glove80 v1 Left Hand](https://www.moergo.com)
 - [Glove80 v1 Right Hand](https://www.moergo.com)
-- [Glove80 v2 Left Hand](https://www.moergo.com)
-- [Glove80 v2 Right Hand](https://www.moergo.com)
 
 UF2 is an easy-to-use bootloader that appears as a flash drive. You can just copy `.uf2`-format
 application images to the flash drive to load new firmware. See https://github.com/Microsoft/uf2 and https://github.com/adafruit/uf2-samdx1 for more information.
