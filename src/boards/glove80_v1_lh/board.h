@@ -86,5 +86,6 @@
 #define UF2_VOLUME_LABEL      "GLV80LHBOOT"
 #define UF2_BOARD_ID          "Glove80-LH-revH"
 #define UF2_INDEX_URL         "https://www.moergo.com"
+#define UF2_BOARD_APP_ID      0x9807B007
 
 #endif // _GLOVE80_V1_LH_H
