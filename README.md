@@ -51,6 +51,7 @@ git submodule update --init
 - DFU using UF2 (https://github.com/Microsoft/uf2) (application only)
 - Auto-enter DFU briefly on startup for DTR auto-reset trick (832 only)
 - (New) Key matrix support for entering DFU, and to wipe application configuration
+- (New) Ability to define UF2 Application Family ID
 
 ## How to use
 
