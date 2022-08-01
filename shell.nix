@@ -6,7 +6,7 @@ stdenv.mkDerivation {
     gcc-arm-embedded
 
     (
-      python37.withPackages(ps: [
+      python38.withPackages(ps: [
         ps.intelhex
         (ps.callPackage ./nix/adafruit-nrfutil.nix {})
       ])
