@@ -140,6 +140,12 @@ int32_t tud_msc_read10_cb (uint8_t lun, uint32_t lba, uint32_t offset, void* buf
 // Process data in buffer to disk's storage and return number of written bytes
 int32_t tud_msc_write10_cb (uint8_t lun, uint32_t lba, uint32_t offset, uint8_t* buffer, uint32_t bufsize)
 {
+  if ( _wr_state.completed ) {
+    // ignore the write completely, we've written the whole UF2 segment that we
+    // decided applied to us.
+    return bufsize;
+  }
+
   (void) lun;
 
   uint32_t count = 0;
@@ -176,7 +182,7 @@ void tud_msc_write10_complete_cb(uint8_t lun)
 
     led_state(STATE_WRITING_FINISHED);
   }
-  else if ( _wr_state.numBlocks )
+  else if ( _wr_state.numBlocks && !_wr_state.completed )
   {
     // Start LED writing pattern with first write
     if (first_write)
@@ -226,6 +232,7 @@ void tud_msc_write10_complete_cb(uint8_t lun)
         PRINTF("Application update complete\r\n");
       }
 
+      _wr_state.completed = true;
       bootloader_dfu_update_process(update_status);
 
       led_state(STATE_WRITING_FINISHED);

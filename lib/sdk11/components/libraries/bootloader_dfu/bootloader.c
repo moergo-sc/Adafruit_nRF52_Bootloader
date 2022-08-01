@@ -45,6 +45,7 @@ typedef enum
     BOOTLOADER_COMPLETE,                                /**< Bootloader status for indicating that all operations for the update procedure has completed and it is safe to reset the system. */
     BOOTLOADER_TIMEOUT,                                 /**< Bootloader status field for indicating that a timeout has occured and current update process should be aborted. */
     BOOTLOADER_RESET,                                   /**< Bootloader status field for indicating that a reset has been requested and current update process should be aborted. */
+    BOOTLOADER_PENDING_COMPLETE,                        /**< Bootloader status field for indicating that we are waiting for reset to give the USB MSC time to satisfy pending OS requests */
 } bootloader_status_t;
 
 static pstorage_handle_t        m_bootsettings_handle;  /**< Pstorage handle to use for registration and identifying the bootloader module on subsequent calls to the pstorage module for load and store of bootloader setting in flash. */
@@ -53,6 +54,13 @@ static bool m_cancel_timeout_on_usb; /**< If set the timeout is cancelled when U
 
 APP_TIMER_DEF( _dfu_startup_timer );
 volatile bool dfu_startup_packet_received = false;
+
+static const uint32_t PENDING_COMPLETE_TIMEOUT_MS = 750;
+APP_TIMER_DEF( _pending_complete_timer );
+
+static void pending_complete_timer_handler(void * p_context) {
+    m_update_status = BOOTLOADER_COMPLETE;
+}
 
 /**@brief   Function for handling callbacks from pstorage module.
  *
@@ -69,7 +77,9 @@ static void pstorage_callback_handler(pstorage_handle_t * p_handle,
     // response then settings has been saved and update has completed.
     if ((m_update_status == BOOTLOADER_SETTINGS_SAVING) && (op_code == PSTORAGE_STORE_OP_CODE))
     {
-        m_update_status = BOOTLOADER_COMPLETE;
+        app_timer_create(&_pending_complete_timer, APP_TIMER_MODE_SINGLE_SHOT, pending_complete_timer_handler);
+        app_timer_start(_pending_complete_timer, APP_TIMER_TICKS(PENDING_COMPLETE_TIMEOUT_MS), NULL);
+        m_update_status = BOOTLOADER_PENDING_COMPLETE;
     }
 
     APP_ERROR_CHECK(result);
