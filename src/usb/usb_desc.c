@@ -37,7 +37,11 @@ enum {
 static bool _cdc_only = false;
 
 // Serial is 64-bit DeviceID -> 16 chars len
+#ifdef BLEDIS_SERIAL_PREFIX
+static char desc_str_serial[sizeof (BLEDIS_SERIAL_PREFIX)+16];
+#else
 static char desc_str_serial[1+16];
+#endif //BLEDIS_SERIAL_PREFIX
 
 //--------------------------------------------------------------------+
 // Device Descriptor
@@ -129,6 +133,15 @@ void usb_desc_init(bool cdc_only)
   // Create Serial string descriptor
   uint8_t const* device_id = (uint8_t const*) &NRF_FICR->DEVICEID;
 
+#ifdef BLEDIS_SERIAL_PREFIX
+  uint8_t desc_str_serial_len = 16 + sizeof (BLEDIS_SERIAL_PREFIX) -1;
+  const char *tmp = BLEDIS_SERIAL_PREFIX;
+  memset(desc_str_serial, 0, sizeof (BLEDIS_SERIAL_PREFIX));
+  strncpy(desc_str_serial, tmp, sizeof (BLEDIS_SERIAL_PREFIX) - 1);
+#else
+  uint8_t desc_str_serial_len = 16;
+#endif //BLEDIS_SERIAL_PREFIX
+
   for ( uint8_t i = 0; i < 8; i++ )
   {
     for ( uint8_t j = 0; j < 2; j++ )
@@ -136,10 +149,10 @@ void usb_desc_init(bool cdc_only)
       const char nibble_to_hex[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
       uint8_t nibble = (device_id[i] >> (j * 4)) & 0xf;
-      desc_str_serial[15 - (i * 2 + j)] = nibble_to_hex[nibble]; // memory is little endian
+      desc_str_serial[desc_str_serial_len -1 - (i * 2 + j)] = nibble_to_hex[nibble]; // memory is little endian
     }
   }
-  desc_str_serial[16] = 0;
+  desc_str_serial[desc_str_serial_len] = 0;
 }
 
 //--------------------------------------------------------------------+

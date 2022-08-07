@@ -49,14 +49,15 @@
  *------------------------------------------------------------------*/
 #define BUTTONS_NUMBER        2
 #define BUTTON_1              _PINNUM(0, 9) // Not connected
-#define BUTTON_2              _PINNUM(0, 10) // Not connected 
+#define BUTTON_2              _PINNUM(0, 10) // Not connected
 #define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
 // BLE OTA
 //--------------------------------------------------------------------+
 #define BLEDIS_MANUFACTURER   "MoErgo"
-#define BLEDIS_MODEL          "Glove80 LH"
+#define BLEDIS_MODEL          "Glove80 LH Bootloader"
+#define BLEDIS_SERIAL_PREFIX  "GLV80-"
 
 //--------------------------------------------------------------------+
 // USB
@@ -70,7 +71,7 @@
 //--------------------------------------------------------------------+
 #define ENABLE_KEY_MATRIX      1
 #define KM_SCAN_DIR            1  // 1 = Scan with col pins, and read with row pins. 0 = Scan with row pins, and read with col pins
-#define KM_COL_COUNT           7  
+#define KM_COL_COUNT           7
 #define KM_COL_PINS            {_PINNUM(1, 1),_PINNUM(1, 3),_PINNUM(1, 5),_PINNUM(1, 7),_PINNUM(1, 6),_PINNUM(1, 4),_PINNUM(1, 8)}
 #define KM_ROW_COUNT           6
 #define KM_ROW_PINS            {_PINNUM(0, 26),_PINNUM(0, 5),_PINNUM(0, 6),_PINNUM(0, 8),_PINNUM(0, 7),_PINNUM(1, 9)}
@@ -78,7 +79,7 @@
 #define KM_COMBO_DFU           {_KEYID(6, 6-1), _KEYID(3, 3-1)} // C6R6 + C3R3
 #define KM_COMBO_WIPE_CONFIG   {_KEYID(6, 6-1), _KEYID(3, 2-1)} // C6R6 + C3R2
 #define KM_COMBO_COUNT         2
-#define KM_COMBOS              {KM_COMBO_DFU, KM_COMBO_WIPE_CONFIG} 
+#define KM_COMBOS              {KM_COMBO_DFU, KM_COMBO_WIPE_CONFIG}
 
 
 //------------- UF2 -------------//
