@@ -134,7 +134,7 @@ void usb_desc_init(bool cdc_only)
   uint8_t const* device_id = (uint8_t const*) &NRF_FICR->DEVICEID;
 
 #ifdef BLEDIS_SERIAL_PREFIX
-  uint8_t desc_str_serial_len = 16 + sizeof (BLEDIS_SERIAL_PREFIX) -1;
+  uint8_t desc_str_serial_len = 16 + sizeof (BLEDIS_SERIAL_PREFIX) - 1;
   const char *tmp = BLEDIS_SERIAL_PREFIX;
   memset(desc_str_serial, 0, sizeof (BLEDIS_SERIAL_PREFIX));
   strncpy(desc_str_serial, tmp, sizeof (BLEDIS_SERIAL_PREFIX) - 1);
