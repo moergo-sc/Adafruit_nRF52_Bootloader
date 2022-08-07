@@ -147,7 +147,7 @@ void usb_desc_init(bool cdc_only)
       const char nibble_to_hex[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
       uint8_t nibble = (device_id[i] >> (j * 4)) & 0xf;
-      desc_str_serial[desc_str_serial_len -1 - (i * 2 + j)] = nibble_to_hex[nibble]; // memory is little endian
+      desc_str_serial[desc_str_serial_len - 1 - (i * 2 + j)] = nibble_to_hex[nibble]; // memory is little endian
     }
   }
   desc_str_serial[desc_str_serial_len] = 0;
