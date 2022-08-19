@@ -82,7 +82,7 @@
 
 //------------- UF2 -------------//
 #define UF2_PRODUCT_NAME      "Glove80 v0 RH"
-#define UF2_VOLUME_LABEL      "GLV80LHBOOT"
+#define UF2_VOLUME_LABEL      "GLV80RHBOOT"
 #define UF2_BOARD_ID          "nRF52840-Glove80-RH-revA"
 #define UF2_INDEX_URL         "https://www.moergo.com"
 
